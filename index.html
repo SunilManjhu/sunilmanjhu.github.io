@@ -1,0 +1,166 @@
+<!--
+Enhanced HTML/CSS/JS SunMan Portfolio with responsive header for mobile
+- Top bar (header) is now flexible and stacks on small screens
+- Buttons wrap or shrink to prevent distortion
+- Cards retain gradient colors and dark/light theme
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SunMan Portfolio</title>
+  <style>
+    :root {
+      --bg-light: #f9fafb;
+      --bg-dark: #1a202c;
+      --text-light: #1a202c;
+      --text-dark: #f9fafb;
+      --shadow-light: rgba(0,0,0,0.1);
+      --shadow-dark: rgba(0,0,0,0.5);
+
+      --card1-light: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      --card2-light: linear-gradient(135deg, #a18cd1, #fbc2eb);
+      --card3-light: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+      --card4-light: linear-gradient(135deg, #fddb92, #d1fdff);
+
+      --card1-dark: linear-gradient(135deg, #6b5b95, #b8a9c9);
+      --card2-dark: linear-gradient(135deg, #355c7d, #6c5b7b);
+      --card3-dark: linear-gradient(135deg, #2a363b, #e84a5f);
+      --card4-dark: linear-gradient(135deg, #ff6f61, #d5f4e6);
+    }
+
+    body {
+      margin:0;
+      font-family: Arial, sans-serif;
+      background-color: var(--bg-light);
+      color: var(--text-light);
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    body.dark {
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    .container { max-width: 900px; margin: auto; padding: 2rem; }
+
+    header {
+      display:flex;
+      justify-content: space-between;
+      align-items:center;
+      flex-wrap: wrap;
+      margin-bottom:2rem;
+    }
+    header > div { margin-bottom: 0.5rem; }
+
+    h1 { font-size:2rem; font-weight:bold; }
+    .tagline { font-size: 0.9rem; color: #555; }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap:0.5rem;
+      align-items:center;
+    }
+
+    .buttons a {
+      padding:0.5rem 1rem;
+      border-radius:0.5rem;
+      text-decoration:none;
+      background-color: #fff;
+      color: #111;
+      box-shadow:0 2px 6px var(--shadow-light);
+      transition: transform 0.2s, background-color 0.2s;
+      font-size:0.9rem;
+    }
+    body.dark .buttons a { background-color: #2d3748; color: var(--text-dark); box-shadow:0 2px 6px var(--shadow-dark); }
+    .buttons a:hover { transform: scale(1.05); }
+
+    .theme-toggle {
+      cursor:pointer;
+      font-size:1.5rem;
+    }
+
+    .cards { display:grid; grid-template-columns:1fr 1fr; gap:2rem; }
+    @media(max-width:600px){
+      .cards { grid-template-columns:1fr; }
+      header { flex-direction: column; align-items: flex-start; }
+      .buttons { width: 100%; justify-content: flex-start; }
+    }
+
+    .card {
+      border-radius: 1rem;
+      padding:1.5rem;
+      box-shadow:0 6px 15px var(--shadow-light);
+      transition: transform 0.3s, background-color 0.3s;
+      position: relative;
+      color:#111;
+    }
+    body.dark .card { box-shadow:0 6px 15px var(--shadow-dark); color: var(--text-dark); }
+    .card:hover { transform: translateY(-5px); }
+
+    .card:nth-child(1) { background: var(--card1-light); }
+    .card:nth-child(2) { background: var(--card2-light); }
+    .card:nth-child(3) { background: var(--card3-light); }
+    .card:nth-child(4) { background: var(--card4-light); }
+    body.dark .card:nth-child(1) { background: var(--card1-dark); }
+    body.dark .card:nth-child(2) { background: var(--card2-dark); }
+    body.dark .card:nth-child(3) { background: var(--card3-dark); }
+    body.dark .card:nth-child(4) { background: var(--card4-dark); }
+
+    .card-title { display:flex; justify-content: space-between; font-weight:bold; font-size:1.1rem; }
+    .card-emoji { opacity:0; transition: opacity 0.3s; }
+    .card:hover .card-emoji { opacity:1; }
+
+    .card-body { margin-top:1rem; font-size:0.9rem; }
+
+    footer { margin-top:3rem; font-size:0.8rem; color:#888; text-align:center; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <h1>SunMan</h1>
+        <div class="tagline">Python & AI — interview-ready. 🚀</div>
+      </div>
+      <div class="buttons">
+        <a href="https://www.linkedin.com/in/sunilmanjhu/" target="_blank">🔗 LinkedIn</a>
+        <a href="https://learnright.netlify.app/" target="_blank">🏢 Business</a>
+        <span class="theme-toggle" id="themeToggle">☀️</span>
+      </div>
+    </header>
+
+    <section class="cards">
+      <div class="card">
+        <div class="card-title">About me <span class="card-emoji">👋</span></div>
+        <div class="card-body">Python dev, AI tinkerer, and interview grinder — I build smart stuff and teach others to use it.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Projects <span class="card-emoji">💡</span></div>
+        <div class="card-body">ML prototypes, automation tools, and a few clean web apps. Ask for code samples.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Skills <span class="card-emoji">🧠</span></div>
+        <div class="card-body">Python, PyTorch, FastAPI, SQL, Docker — I like reproducible experiments.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Contact <span class="card-emoji">✉️</span></div>
+        <div class="card-body">Open to roles. Hit LinkedIn or visit my business site below.</div>
+      </div>
+    </section>
+
+    <footer>© 2025 SunMan — built with ♥</footer>
+  </div>
+
+  <script>
+    const themeToggle = document.getElementById('themeToggle');
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      themeToggle.textContent = document.body.classList.contains('dark') ? '🌙' : '☀️';
+    });
+  </script>
+</body>
+</html>
